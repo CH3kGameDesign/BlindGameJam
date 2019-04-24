@@ -12,6 +12,7 @@ public class Sword : MonoBehaviour {
     [Header ("Prefabs")]
     public List<GameObject> swingSounds = new List<GameObject>();
     public List<GameObject> blockSounds = new List<GameObject>();
+    public List<GameObject> killSounds = new List<GameObject>();
 
     [HideInInspector]
     public bool swung;
@@ -41,17 +42,28 @@ public class Sword : MonoBehaviour {
     
     void SwingUpdate()
     {
+        int layerMask = LayerMask.GetMask("Enemy");
         if (swingTime > swingTimer)
         {
             if (Input.GetAxis("Mouse X") > swingGate)
             {
                 swing = 1;
                 swingTime = 0;
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, transform.right, out hit, 10, layerMask))
+                {
+                    HitEnemy(hit.transform);
+                }
             }
             else if (Input.GetAxis("Mouse X") < -swingGate)
             {
                 swing = 0;
                 swingTime = 0;
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, -transform.right, out hit, 10, layerMask))
+                {
+                    HitEnemy(hit.transform);
+                }
             }
             else
             {
@@ -71,8 +83,15 @@ public class Sword : MonoBehaviour {
         swingTime += Time.deltaTime;
     }
 
+    void HitEnemy (Transform enemy)
+    {
+        Instantiate(killSounds[1], enemy.position, enemy.rotation);
+        Destroy(enemy.gameObject);
+    }
+
     void BlockUpdate ()
     {
+        int layerMask = LayerMask.GetMask("Knife");
         if (blockTime > blockTimer)
             block = -1;
 
@@ -80,13 +99,24 @@ public class Sword : MonoBehaviour {
         {
             block = 0;
             blockTime = 0;
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.right, out hit, 10, layerMask))
+            {
+                HitEnemy(hit.transform);
+            }
             Instantiate(blockSounds[block], transform.position, transform.rotation);
         }
         if (Input.GetMouseButtonDown(1))
         {
             block = 1;
             blockTime = 0;
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, -transform.right, out hit, 10, layerMask))
+            {
+                HitEnemy(hit.transform);
+            }
             Instantiate(blockSounds[block], transform.position, transform.rotation);
+            
         }
 
         blockTime += Time.deltaTime;
