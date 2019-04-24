@@ -6,6 +6,7 @@ public class Sword : MonoBehaviour {
 
     [Header ("Variables")]
     public float swingGate;
+    public float swingTimer;
     public float blockTimer;
 
     [Header ("Prefabs")]
@@ -19,40 +20,46 @@ public class Sword : MonoBehaviour {
 
     [HideInInspector]
     public int block;
-
-    private Vector3 prevPos;
+    
     private float blockTime;
+    private float swingTime;
 
 	// Use this for initialization
 	void Start () {
+        Cursor.lockState = CursorLockMode.Locked;
         swung = false;
         block = -1;
-        prevPos = Input.mousePosition;
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-
+        
         SwingUpdate();
         BlockUpdate();
     }
-
+    
     void SwingUpdate()
     {
-        if ((Input.mousePosition.x - prevPos.x) > (swingGate * Time.deltaTime))
+        if (swingTime > swingTimer)
         {
-            swing = 1;
+            if (Input.GetAxis("Mouse X") > swingGate)
+            {
+                swing = 1;
+                swingTime = 0;
+            }
+            else if (Input.GetAxis("Mouse X") < -swingGate)
+            {
+                swing = 0;
+                swingTime = 0;
+            }
+            else
+            {
+                swung = false;
+                swing = -1;
+            }
         }
-        else if ((Input.mousePosition.x - prevPos.x) < (-swingGate * Time.deltaTime))
-        {
-            swing = 0;
-        }
-        else
-        {
-            swung = false;
-            swing = -1;
-        }
+
 
         if (swung == false && swing != -1)
         {
@@ -60,8 +67,8 @@ public class Sword : MonoBehaviour {
             swung = true;
             Instantiate(swingSounds[swing], transform.position, transform.rotation);
         }
-
-        prevPos = Input.mousePosition;
+        
+        swingTime += Time.deltaTime;
     }
 
     void BlockUpdate ()
