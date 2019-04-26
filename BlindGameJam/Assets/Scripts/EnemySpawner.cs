@@ -8,6 +8,12 @@ public class EnemySpawner : MonoBehaviour {
     public float spawnTimer;
     [Header("GameObjects")]
     public List<GameObject> enemies = new List<GameObject>();
+    public List<Transform> spawnPoint = new List<Transform>();
+    [Space (10)]
+    [Header("SoundGameobjects")]
+    public List<GameObject> stepSoundsSide = new List<GameObject>();
+    public List<GameObject> stepSoundsFront = new List<GameObject>();
+    public List<GameObject> stepSoundsBack = new List<GameObject>();
 
     private float spawnTime = 0;
 
@@ -20,8 +26,15 @@ public class EnemySpawner : MonoBehaviour {
 	void Update () {
         if (transform.childCount < 4 && spawnTime > spawnTimer)
         {
-            int spawnPlace = Random.Range(0, 2);
-            Instantiate(enemies[Random.Range(0, enemies.Count)], new Vector3(-15 + (30 * spawnPlace), 0, 0), transform.rotation, transform);
+            int spawnPlace = Random.Range(0, 4);
+            GameObject GO = Instantiate(enemies[Random.Range(0, enemies.Count)], spawnPoint[spawnPlace].position, spawnPoint[spawnPlace].rotation, transform);
+            if (spawnPlace < 2)
+                GO.GetComponent<Enemy>().stepSounds = stepSoundsSide;
+            if (spawnPlace == 2)
+                GO.GetComponent<Enemy>().stepSounds = stepSoundsBack;
+            if (spawnPlace == 3)
+                GO.GetComponent<Enemy>().stepSounds = stepSoundsFront;
+
             spawnTime = Random.Range(-1, 0);
         }
         spawnTime += Time.deltaTime;

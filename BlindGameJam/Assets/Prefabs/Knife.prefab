@@ -66,6 +66,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movSpeed: 5
   attackDistance: 1
+  attackSpeed: 0.7
   stepSpeed: 1
   stepSounds:
   - {fileID: 1867384088171704, guid: 01ef7ee5edccdf8439600db8443989d2, type: 2}
+  warSounds:
+  - {fileID: 1762181593179482, guid: 1bfc5c9880f2c484fbca8b86747cb1d4, type: 2}

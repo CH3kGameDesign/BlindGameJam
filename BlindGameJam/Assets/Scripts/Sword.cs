@@ -25,11 +25,15 @@ public class Sword : MonoBehaviour {
     private float blockTime;
     private float swingTime;
 
+    public static Sword playerSword;
+
 	// Use this for initialization
 	void Start () {
+        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         swung = false;
         block = -1;
+        playerSword = this.GetComponent<Sword>();
     }
 	
 	// Update is called once per frame
@@ -37,7 +41,7 @@ public class Sword : MonoBehaviour {
 
         
         SwingUpdate();
-        BlockUpdate();
+        //BlockUpdate();
     }
     
     void SwingUpdate()
@@ -52,7 +56,7 @@ public class Sword : MonoBehaviour {
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, transform.right, out hit, 10, layerMask))
                 {
-                    HitEnemy(hit.transform);
+                   HitEnemy(hit.transform);
                 }
             }
             else if (Input.GetAxis("Mouse X") < -swingGate)
@@ -61,6 +65,26 @@ public class Sword : MonoBehaviour {
                 swingTime = 0;
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, -transform.right, out hit, 10, layerMask))
+                {
+                     HitEnemy(hit.transform);
+                }
+            }
+            else if (Input.GetAxis("Mouse Y") > swingGate)
+            {
+                swing = 0;
+                swingTime = 0;
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, transform.forward, out hit, 10, layerMask))
+                {
+                    HitEnemy(hit.transform);
+                }
+            }
+            else if (Input.GetAxis("Mouse Y") < -swingGate)
+            {
+                swing = 0;
+                swingTime = 0;
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, -transform.forward, out hit, 10, layerMask))
                 {
                     HitEnemy(hit.transform);
                 }
@@ -91,29 +115,31 @@ public class Sword : MonoBehaviour {
 
     void BlockUpdate ()
     {
-        int layerMask = LayerMask.GetMask("Knife");
+        int layerMask = LayerMask.GetMask("Enemy");
         if (blockTime > blockTimer)
             block = -1;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
             block = 0;
             blockTime = 0;
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.right, out hit, 10, layerMask))
             {
-                HitEnemy(hit.transform);
+                if (hit.transform.childCount>0)
+                    HitEnemy(hit.transform);
             }
             Instantiate(blockSounds[block], transform.position, transform.rotation);
         }
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
             block = 1;
             blockTime = 0;
             RaycastHit hit;
             if (Physics.Raycast(transform.position, -transform.right, out hit, 10, layerMask))
             {
-                HitEnemy(hit.transform);
+                if (hit.transform.childCount > 0)
+                    HitEnemy(hit.transform);
             }
             Instantiate(blockSounds[block], transform.position, transform.rotation);
             
