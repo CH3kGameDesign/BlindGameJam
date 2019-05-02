@@ -5549,6 +5549,12 @@ MonoBehaviour:
   stepSoundsBack:
   - {fileID: 1820223277398056, guid: 383497093a4b9984cba666cc5610f67a, type: 2}
   - {fileID: 1254853665658474, guid: 93cb394dfbc8edd45aa36ea842a7dbb8, type: 2}
+  warSoundsSide:
+  - {fileID: 1762181593179482, guid: 1bfc5c9880f2c484fbca8b86747cb1d4, type: 2}
+  warSoundsFront:
+  - {fileID: 1330170805902282, guid: e4cf550a33a58004fb27353a0c65e8dd, type: 2}
+  warSoundsBack:
+  - {fileID: 1942673644955210, guid: 2f6e1ff0828f7ca43ba754510aa55bca, type: 2}
 --- !u!4 &1742848086
 Transform:
   m_ObjectHideFlags: 0

@@ -9,11 +9,15 @@ public class EnemySpawner : MonoBehaviour {
     [Header("GameObjects")]
     public List<GameObject> enemies = new List<GameObject>();
     public List<Transform> spawnPoint = new List<Transform>();
-    [Space (10)]
+    [Space (20)]
     [Header("SoundGameobjects")]
     public List<GameObject> stepSoundsSide = new List<GameObject>();
     public List<GameObject> stepSoundsFront = new List<GameObject>();
     public List<GameObject> stepSoundsBack = new List<GameObject>();
+    [Space (10)]
+    public List<GameObject> warSoundsSide = new List<GameObject>();
+    public List<GameObject> warSoundsFront = new List<GameObject>();
+    public List<GameObject> warSoundsBack = new List<GameObject>();
 
     private float spawnTime = 0;
 
@@ -29,11 +33,20 @@ public class EnemySpawner : MonoBehaviour {
             int spawnPlace = Random.Range(0, 4);
             GameObject GO = Instantiate(enemies[Random.Range(0, enemies.Count)], spawnPoint[spawnPlace].position, spawnPoint[spawnPlace].rotation, transform);
             if (spawnPlace < 2)
+            {
                 GO.GetComponent<Enemy>().stepSounds = stepSoundsSide;
+                GO.GetComponent<Enemy>().warSounds = warSoundsSide;
+            }
             if (spawnPlace == 2)
+            {
                 GO.GetComponent<Enemy>().stepSounds = stepSoundsBack;
+                GO.GetComponent<Enemy>().warSounds = warSoundsBack;
+            }
             if (spawnPlace == 3)
+            {
                 GO.GetComponent<Enemy>().stepSounds = stepSoundsFront;
+                GO.GetComponent<Enemy>().warSounds = warSoundsFront;
+            }
 
             spawnTime = Random.Range(-1, 0);
         }
