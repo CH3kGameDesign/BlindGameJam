@@ -31,7 +31,18 @@ public class EnemySpawner : MonoBehaviour {
         if (transform.childCount < 4 && spawnTime > spawnTimer)
         {
             int spawnPlace = Random.Range(0, 4);
+            if (spawnPlace >= 2)
+            {
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    if (transform.GetChild(i).name == "2" || transform.GetChild(i).name == "3")
+                        spawnPlace = Random.Range(0, 2);
+                }
+            }
+
             GameObject GO = Instantiate(enemies[Random.Range(0, enemies.Count)], spawnPoint[spawnPlace].position, spawnPoint[spawnPlace].rotation, transform);
+            GO.name = spawnPlace.ToString();
+
             if (spawnPlace < 2)
             {
                 GO.GetComponent<Enemy>().stepSounds = stepSoundsSide;
