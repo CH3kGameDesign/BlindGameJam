@@ -63,6 +63,6 @@ public class Enemy : MonoBehaviour
 
     void Attack()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }
