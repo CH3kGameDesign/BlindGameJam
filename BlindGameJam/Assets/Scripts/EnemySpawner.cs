@@ -21,6 +21,13 @@ public class EnemySpawner : MonoBehaviour {
 
     private float spawnTime = 0;
 
+    public bool spawnEnemies;
+    [HideInInspector]
+    public bool enemyWin = false;
+
+    [HideInInspector]
+    public int enemiesSpawned = 0;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -28,7 +35,7 @@ public class EnemySpawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (transform.childCount < 4 && spawnTime > spawnTimer)
+        if (transform.childCount < 4 && spawnTime > spawnTimer && spawnEnemies == true)
         {
             int spawnPlace = Random.Range(0, 4);
             if (spawnPlace >= 2)
@@ -41,6 +48,7 @@ public class EnemySpawner : MonoBehaviour {
             }
 
             GameObject GO = Instantiate(enemies[Random.Range(0, enemies.Count)], spawnPoint[spawnPlace].position, spawnPoint[spawnPlace].rotation, transform);
+            enemiesSpawned++;
             GO.name = spawnPlace.ToString();
 
             if (spawnPlace < 2)
