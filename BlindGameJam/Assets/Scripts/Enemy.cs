@@ -63,6 +63,6 @@ public class Enemy : MonoBehaviour
 
     void Attack()
     {
-        SceneManager.LoadScene(1);
+        GetComponentInParent<EnemySpawner>().enemyWin = true;
     }
 }
