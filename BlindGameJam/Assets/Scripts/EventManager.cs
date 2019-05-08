@@ -93,6 +93,14 @@ public class EventManager : MonoBehaviour {
             Event4();
         }
 
+        if (lastEvent == 4 & DialogueManager.stoppedPlaying == true && EnemySpawner.enemiesSpawned != Event4EnemyNumber)
+        {
+            EnemySpawner.spawnEnemies = true;
+            for (int i = 0; i < ActivateOnCombat.Length; i++)
+            {
+                ActivateOnCombat[i].SetActive(true);
+            }
+        }
         if (EnemySpawner.enemiesSpawned == Event4EnemyNumber && lastEvent == 4)
         {
             EnemySpawner.spawnEnemies = false;
@@ -156,11 +164,6 @@ public class EventManager : MonoBehaviour {
         lastEvent = 4;
         DialogueManager.ScriptLines(10);
         DialogueManager.EndOnLine = 11;
-        EnemySpawner.spawnEnemies = true;
-        for (int i = 0; i < ActivateOnCombat.Length; i++)
-        {
-            ActivateOnCombat[i].SetActive(true);
-        }
     }
     //ONFAIL
     void Event4Fail()

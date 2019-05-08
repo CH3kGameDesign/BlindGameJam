@@ -6359,7 +6359,7 @@ MonoBehaviour:
   - {fileID: 384447017}
   Event2Gate: 3
   Event4EnemyNumber: 15
-  startEvent: 4
+  startEvent: 1
   lastEvent: 0
 --- !u!4 &898325575
 Transform:
