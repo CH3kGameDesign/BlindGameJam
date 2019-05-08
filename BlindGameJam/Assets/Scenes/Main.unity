@@ -8386,6 +8386,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScriptedDialogueHolder: {fileID: 1744335874}
   BackgroundVoicesHolder: {fileID: 1744335874}
+  lineSpace: 0.5
   lastDiaLine: -1
   EndOnLine: -1
   stoppedPlaying: 1

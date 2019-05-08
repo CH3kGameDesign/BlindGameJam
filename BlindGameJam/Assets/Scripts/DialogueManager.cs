@@ -10,6 +10,9 @@ public class DialogueManager : MonoBehaviour {
     private AudioSource[] ScrSource;
     private AudioSource[] BacSource;
 
+    public float lineSpace;
+        private float lineSpaceTimer = 0;
+
     [HideInInspector]
     public int lastDiaLine = -1;
     [HideInInspector]
@@ -32,13 +35,17 @@ public class DialogueManager : MonoBehaviour {
             if (ScriptedDialogueHolder.GetChild(i).GetComponent<AudioSource>().isPlaying == true)
                 return;
         }
-        if (lastDiaLine < EndOnLine)
+        if (lineSpaceTimer > lineSpace)
         {
-            ScriptLines(lastDiaLine + 1);
+            if (lastDiaLine < EndOnLine)
+            {
+                ScriptLines(lastDiaLine + 1);
+            }
+            else
+                stoppedPlaying = true;
+            lineSpaceTimer = 0;
         }
-        else
-            stoppedPlaying = true;
-
+        lineSpaceTimer += Time.deltaTime;
     }
 
     public void ScriptLines (int line)
