@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4687543291111798}
+  - component: {fileID: 114275883520772454}
   - component: {fileID: 82384056558808306}
   - component: {fileID: 114213743573858658}
   m_Layer: 0
@@ -111,7 +112,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.1388889
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -147,3 +148,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab80724a29034464b8a5a5486aa1449a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114275883520772454
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1471013783005426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c956c6217257afd499cdb1bd0185b018, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: {x: -1, y: 0, z: 0}

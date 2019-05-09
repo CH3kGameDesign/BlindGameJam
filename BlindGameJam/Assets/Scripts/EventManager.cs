@@ -9,6 +9,11 @@ public class EventManager : MonoBehaviour {
     public EnemySpawner EnemySpawner;
     public GameObject[] ActivateOnCombat;
 
+
+    public EnemySpawner EndlessEnemySpawner;
+    public GameObject[] ActivateOnEndlessCombat;
+    
+
     [Header("Variables")]
     public float Event2Gate;
         private float Event2GateTimer = 0;
@@ -69,7 +74,9 @@ public class EventManager : MonoBehaviour {
             Event5();
         if (startEvent == 6)
             Event6();
-        if (startEvent < 1 || startEvent > 6)
+        if (startEvent == 41)
+            Event4Repeat();
+        if (startEvent < 1)
             Event1();
     }
 
@@ -105,8 +112,14 @@ public class EventManager : MonoBehaviour {
         {
             EnemySpawner.spawnEnemies = false;
         }
+
         if (lastEvent == 4 && EnemySpawner.enemyWin == true)
-            Event4Fail();
+        {
+            if (startEvent == 41)
+                Event4FailTwice();
+            else
+                Event4Fail();
+        }
         else if (lastEvent == 4 && EnemySpawner.transform.childCount == 0 && EnemySpawner.enemiesSpawned == Event4EnemyNumber)
         {
             Event5();
@@ -117,13 +130,13 @@ public class EventManager : MonoBehaviour {
         }
         if (lastEvent == 5 && DialogueManager.stoppedPlaying == true)
         {
-            EnemySpawner.spawnEnemies = true;
-            for (int i = 0; i < ActivateOnCombat.Length; i++)
+            EndlessEnemySpawner.spawnEnemies = true;
+            for (int i = 0; i < ActivateOnEndlessCombat.Length; i++)
             {
-                ActivateOnCombat[i].SetActive(true);
+                ActivateOnEndlessCombat[i].SetActive(true);
             }
         }
-        if (lastEvent == 5 && EnemySpawner.enemyWin == true)
+        if (lastEvent == 5 && EndlessEnemySpawner.enemyWin == true)
             Event6();
         if (lastEvent == 6 && DialogueManager.stoppedPlaying == true)
             SceneManager.LoadScene(0);
@@ -165,6 +178,11 @@ public class EventManager : MonoBehaviour {
         DialogueManager.ScriptLines(10);
         DialogueManager.EndOnLine = 11;
     }
+    //Combat
+    void Event4Repeat()
+    {
+        lastEvent = 4;
+    }
     //ONFAIL
     void Event4Fail()
     {
@@ -180,7 +198,25 @@ public class EventManager : MonoBehaviour {
         }
         DialogueManager.ScriptLines(12);
         DialogueManager.EndOnLine = 13;
-        startEvent = 4;
+        startEvent = 41;
+        lastEvent = 40;
+        DontDestroyOnLoad(this.gameObject);
+    }
+    void Event4FailTwice()
+    {
+        for (int i = 0; i < ActivateOnCombat.Length; i++)
+        {
+            ActivateOnCombat[i].SetActive(false);
+        }
+        EnemySpawner.spawnEnemies = false;
+        EnemySpawner.enemiesSpawned = 0;
+        for (int i = 0; i < EnemySpawner.transform.childCount; i++)
+        {
+            Destroy(EnemySpawner.transform.GetChild(i).gameObject);
+        }
+        DialogueManager.ScriptLines(12);
+        DialogueManager.EndOnLine = 12;
+        startEvent = 41;
         lastEvent = 40;
         DontDestroyOnLoad(this.gameObject);
     }
@@ -199,15 +235,15 @@ public class EventManager : MonoBehaviour {
     //DEATH
     void Event6()
     {
-        for (int i = 0; i < ActivateOnCombat.Length; i++)
+        for (int i = 0; i < ActivateOnEndlessCombat.Length; i++)
         {
-            ActivateOnCombat[i].SetActive(false);
+            ActivateOnEndlessCombat[i].SetActive(false);
         }
-        EnemySpawner.spawnEnemies = false;
-        EnemySpawner.enemiesSpawned = 0;
-        for (int i = 0; i < EnemySpawner.transform.childCount; i++)
+        EndlessEnemySpawner.spawnEnemies = false;
+        EndlessEnemySpawner.enemiesSpawned = 0;
+        for (int i = 0; i < EndlessEnemySpawner.transform.childCount; i++)
         {
-            Destroy(EnemySpawner.transform.GetChild(i).gameObject);
+            Destroy(EndlessEnemySpawner.transform.GetChild(i).gameObject);
         }
         DialogueManager.ScriptLines(20);
         DialogueManager.EndOnLine = 20;

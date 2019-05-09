@@ -71,7 +71,7 @@ public class Sword : MonoBehaviour {
             }
             else if (Input.GetAxis("Mouse Y") > swingGate)
             {
-                swing = 0;
+                swing = 2;
                 swingTime = 0;
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, transform.forward, out hit, 10, layerMask))
@@ -81,7 +81,7 @@ public class Sword : MonoBehaviour {
             }
             else if (Input.GetAxis("Mouse Y") < -swingGate)
             {
-                swing = 0;
+                swing = 3;
                 swingTime = 0;
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, -transform.forward, out hit, 10, layerMask))
