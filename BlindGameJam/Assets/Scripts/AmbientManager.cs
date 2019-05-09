@@ -16,23 +16,26 @@ public class AmbientManager : MonoBehaviour {
     public AudioSource producer;
     public AudioSource director;
     public AudioSource narrator;
+    public AudioSource cut;
     public AudioSource dirgroan;
+    public AudioSource dirend;
 
     public ParticleSystem ash;
+    public AudioSource crowd2;
+
+    public AudioSource intro;
 
     private bool playonce = false;
     private bool playtwice = false;
     private bool playthrice = false;
     private bool playfourice = false;
+    private bool playfivice = false;
+    private bool sice = false;
 
 	// Use this for initialization
 	void Start () {
-        crowd.Play();
-        Invoke("Move", 6f);
-        Invoke("Chair", .1f);
-        Invoke("Footsteps", .1f);
-        Invoke("Slap", .1f);
-        Invoke("Unsheathe", .1f);
+        //crowd.Play();
+        Invoke("Move", 7.5f);
 	}
 	
 	// Update is called once per frame
@@ -75,36 +78,62 @@ public class AmbientManager : MonoBehaviour {
                 return;
             }
         }
+
+        if (cut.isPlaying)
+        {
+            if (playfourice == false)
+            {
+                crowd2.Play();
+                ash.gameObject.SetActive(false);
+                playfourice = true;
+            }
+            if (playfourice == true)
+            {
+                return;
+            }
+        }
+
+        if (dirgroan.isPlaying)
+        {
+            if (playfivice == false)
+            {
+                groan.Play();
+                playfivice = true;
+            }
+            if (playfivice == true)
+            {
+                return;
+            }
+        }
+
+        if (dirend.isPlaying)
+        {
+            if (sice == false)
+            {
+                crowd2.Stop();
+                footsteps.Play();
+                sice = true;
+            }
+            if (sice == true)
+            {
+                footsteps.Stop();
+                crowd2.Stop();
+                return; 
+            }
+        }
+
+        if (intro.isPlaying)
+        {
+            ash.gameObject.SetActive(true);
+            narrator.Stop();
+        }
+
+        DontDestroyOnLoad(this.gameObject);
     }
 
     private void Move()
     {
         crowd.Stop();
         move.Play();
-    }
-
-    void Groan()
-    {
-
-    }
-
-    void Chair()
-    {
-
-    }
-
-    void Footsteps()
-    {
-
-    }
-
-    void Slap()
-    {
-
-    }
-
-    void Unsheathe()
-    {
-
     }
 }
