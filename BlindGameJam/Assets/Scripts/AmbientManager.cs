@@ -34,7 +34,7 @@ public class AmbientManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        //crowd.Play();
+        crowd.Play();
         Invoke("Move", 7.5f);
 	}
 	
@@ -83,7 +83,7 @@ public class AmbientManager : MonoBehaviour {
         {
             if (playfourice == false)
             {
-                crowd2.Play();
+                //crowd2.Play();
                 ash.gameObject.SetActive(false);
                 playfourice = true;
             }
@@ -126,8 +126,6 @@ public class AmbientManager : MonoBehaviour {
         {
             ash.gameObject.SetActive(true);
         }
-
-        DontDestroyOnLoad(this.gameObject);
     }
 
     private void Move()
