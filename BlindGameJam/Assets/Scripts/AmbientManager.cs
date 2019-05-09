@@ -125,7 +125,6 @@ public class AmbientManager : MonoBehaviour {
         if (intro.isPlaying)
         {
             ash.gameObject.SetActive(true);
-            narrator.Stop();
         }
 
         DontDestroyOnLoad(this.gameObject);
