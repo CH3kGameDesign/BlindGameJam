@@ -139,7 +139,7 @@ public class EventManager : MonoBehaviour {
         if (lastEvent == 5 && EndlessEnemySpawner.enemyWin == true)
             Event6();
         if (lastEvent == 6 && DialogueManager.stoppedPlaying == true)
-            SceneManager.LoadScene(0);
+            Application.Quit();
     }
 
 

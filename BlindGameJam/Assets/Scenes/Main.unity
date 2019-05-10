@@ -7394,7 +7394,7 @@ MonoBehaviour:
   - {fileID: 711627661}
   Event2Gate: 3
   Event4EnemyNumber: 15
-  startEvent: 4
+  startEvent: 1
   lastEvent: 0
 --- !u!4 &898325575
 Transform:
@@ -8447,6 +8447,7 @@ GameObject:
   - component: {fileID: 1304066908}
   - component: {fileID: 1304066907}
   - component: {fileID: 1304066906}
+  - component: {fileID: 1304066909}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -8509,6 +8510,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1304066909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1304066905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb193de3f0a6f345989b3330f8cc483, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1328242208
 GameObject:
   m_ObjectHideFlags: 0
